@@ -15,6 +15,9 @@ class ResimMotoru:
         self.guncel_resim_array = self.orijinal_resim_array.copy()
         return self.guncel_resim
     
+    def resim_kaydet(self, resim_yolu):
+        self.guncel_resim.save(resim_yolu)
+
     def glitch_effekti(self):
         r, g, b = self.guncel_resim_array[:,:,0] , self.guncel_resim_array[:,:,1], self.guncel_resim_array[:,:,2]
         r_shift = np.roll(r, 10, axis=1)

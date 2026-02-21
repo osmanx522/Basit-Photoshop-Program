@@ -20,8 +20,9 @@ class AnaPencere(QWidget):
 
         izgara = QGridLayout()
         btn_ac = QPushButton("Resim Aç")
-        btn_ac.clicked.connect(self.resim_yukle)
+        btn_ac.clicked.connect(self.yukle)
         btn_kaydet = QPushButton("Resim Kaydet")
+        btn_kaydet.clicked.connect(self.kaydet)
         btn_gltich = QPushButton("Glitch Efekti")
         btn_gltich.clicked.connect(self.glitch)
         btn_bulanik = QPushButton("Bulanik")
@@ -48,12 +49,16 @@ class AnaPencere(QWidget):
         duzenli_resim = pixmap_resim.scaled(800, 600, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.resim_alani.setPixmap(duzenli_resim) # Resim alanına resmi yerleştirir.
 
-    def resim_yukle(self):
+    def yukle(self):
         dosya_yolu, _ = QFileDialog.getOpenFileName(self, "Bir Resim Seç", "", "Resimler (*.png *.jpg *.jpeg)")
         if dosya_yolu:
             pil_resmi = self.motor.resim_yukle(dosya_yolu)
             self.resim_guncelleme(pil_resmi)
-    
+
+    def kaydet(self):
+        dosya_yolu, _ = QFileDialog.getSaveFileName(self, "Kaydedilcek Yolu Seçin", "","PNG Formatı (*.png);;JPEG Formatı (*.jpg *.jpeg)")
+        if dosya_yolu:
+            self.motor.resim_kaydet(dosya_yolu)
     def glitch(self):
         retro_resim = self.motor.glitch_effekti()
         self.resim_guncelleme(retro_resim)
