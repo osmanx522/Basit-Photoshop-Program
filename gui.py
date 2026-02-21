@@ -22,12 +22,18 @@ class AnaPencere(QWidget):
 
         # BUTON BÖLÜMLERİ 
         izgara = QGridLayout()
-        
+    
         btn_ac = QPushButton("Resim Aç")
         btn_ac.clicked.connect(self.yukle)
 
         btn_kaydet = QPushButton("Resim Kaydet")
         btn_kaydet.clicked.connect(self.kaydet)
+
+        btn_uygula = QPushButton("Resmi Uygula")
+        btn_uygula.clicked.connect(self.uygula)
+
+        btn_sifirla = QPushButton("Resmi Sıfırla")
+        btn_sifirla.clicked.connect(self.sifirla)
 
         btn_gltich = QPushButton("Glitch Efekti")
         btn_gltich.setCheckable(True)
@@ -37,6 +43,8 @@ class AnaPencere(QWidget):
 
         izgara.addWidget(btn_ac, 0,0)
         izgara.addWidget(btn_kaydet, 0,1)
+        izgara.addWidget(btn_sifirla, 0,2)
+        izgara.addWidget(btn_uygula, 0,3)
         izgara.addWidget(btn_gltich, 1,0)
         izgara.addWidget(btn_bulanik, 1,1)
         sag_duzen.addLayout(izgara)
@@ -83,6 +91,18 @@ class AnaPencere(QWidget):
             dosya_yolu, _ = QFileDialog.getSaveFileName(self, "Kaydedilcek Yolu Seçin", "","PNG Formatı (*.png);;JPEG Formatı (*.jpg *.jpeg)")
             if dosya_yolu:
                 self.motor.resim_kaydet(dosya_yolu)
+    def uygula(self):
+        if self.motor.orijinal_resim:
+            self.motor.orijinal_resim = self.motor.guncel_resim.copy()
+            self.ayar_cubugu.setValue(0)
+
+    def sifirla(self):
+        if self.motor.orijinal_resim:
+            self.motor.orijinal_resim = self.motor.ilk_resim.copy()
+            self.motor.guncel_resim = self.motor.ilk_resim.copy()
+            self.ayar_cubugu.setValue(0)
+            self.resim_guncelleme(self.motor.orijinal_resim)
+
     def glitch(self, siddet):
         retro_resim = self.motor.glitch_efekti(siddet)
         self.resim_guncelleme(retro_resim)
