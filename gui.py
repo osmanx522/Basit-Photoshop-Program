@@ -3,12 +3,12 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from io import BytesIO
 from resim_islemleri import ResimMotoru
-
+from button_function import ButonYoneticisi
 class AnaPencere(QWidget):
     def __init__(self):
         super().__init__()
         self.motor = ResimMotoru()
-
+        self.buton_yonetici = ButonYoneticisi(self)
         # ANA DÜZEN 
         Hlayout = QHBoxLayout()
         sol_duzen = QVBoxLayout()
@@ -24,16 +24,16 @@ class AnaPencere(QWidget):
         izgara = QGridLayout()
     
         btn_ac = QPushButton("Resim Aç")
-        btn_ac.clicked.connect(self.yukle)
+        btn_ac.clicked.connect(self.buton_yonetici.yukle)
 
         btn_kaydet = QPushButton("Resim Kaydet")
-        btn_kaydet.clicked.connect(self.kaydet)
+        btn_kaydet.clicked.connect(self.buton_yonetici.kaydet)
 
         btn_uygula = QPushButton("Resmi Uygula")
-        btn_uygula.clicked.connect(self.uygula)
+        btn_uygula.clicked.connect(self.buton_yonetici.uygula)
 
         btn_sifirla = QPushButton("Resmi Sıfırla")
-        btn_sifirla.clicked.connect(self.sifirla)
+        btn_sifirla.clicked.connect(self.buton_yonetici.sifirla)
 
         btn_gltich = QPushButton("Glitch Efekti")
         btn_gltich.setCheckable(True)
@@ -55,7 +55,7 @@ class AnaPencere(QWidget):
 
         # AYAR CUBUGU
         self.ayar_cubugu = QSlider(Qt.Horizontal)
-        self.ayar_cubugu.valueChanged.connect(self.efekt_uygula)
+        self.ayar_cubugu.valueChanged.connect(self.buton_yonetici.efekt_uygula)
         sag_duzen.addWidget(self.ayar_cubugu)
 
         Hlayout.addLayout(sol_duzen)
@@ -71,41 +71,4 @@ class AnaPencere(QWidget):
         # Qt.SmoothTransformation: Küçültürken piksellenmeyi önler
         duzenli_resim = pixmap_resim.scaled(800, 600, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.resim_alani.setPixmap(duzenli_resim) # Resim alanına resmi yerleştirir.
-
-    def efekt_uygula(self):
-        if self.motor.orijinal_resim:
-            siddet = self.ayar_cubugu.value()
-            secili_efekt = self.efekt_grubu.checkedId()
-            if secili_efekt == 1:
-                self.glitch(siddet)
-            elif secili_efekt == 2:
-                self.blur(siddet)
-    def yukle(self):
-        dosya_yolu, _ = QFileDialog.getOpenFileName(self, "Bir Resim Seç", "", "Resimler (*.png *.jpg *.jpeg)")
-        if dosya_yolu:
-            pil_resmi = self.motor.resim_yukle(dosya_yolu)
-            self.resim_guncelleme(pil_resmi)
-
-    def kaydet(self):
-        if self.motor.orijinal_resim:
-            dosya_yolu, _ = QFileDialog.getSaveFileName(self, "Kaydedilcek Yolu Seçin", "","PNG Formatı (*.png);;JPEG Formatı (*.jpg *.jpeg)")
-            if dosya_yolu:
-                self.motor.resim_kaydet(dosya_yolu)
-    def uygula(self):
-        if self.motor.orijinal_resim:
-            self.motor.orijinal_resim = self.motor.guncel_resim.copy()
-            self.ayar_cubugu.setValue(0)
-
-    def sifirla(self):
-        if self.motor.orijinal_resim:
-            self.motor.orijinal_resim = self.motor.ilk_resim.copy()
-            self.motor.guncel_resim = self.motor.ilk_resim.copy()
-            self.ayar_cubugu.setValue(0)
-            self.resim_guncelleme(self.motor.orijinal_resim)
-
-    def glitch(self, siddet):
-        retro_resim = self.motor.glitch_efekti(siddet)
-        self.resim_guncelleme(retro_resim)
-    def blur(self, siddet):
-        blur_resim = self.motor.blur_efekti(siddet)
-        self.resim_guncelleme(blur_resim)
+    
