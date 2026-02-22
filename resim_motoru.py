@@ -6,11 +6,20 @@ class ResimMotoru:
         self.ilk_resim = None
         self.orijinal_resim = None
         self.guncel_resim = None
+
     def resim_yukle(self, resim_yolu):
         self.ilk_resim = Image.open(resim_yolu)
         self.orijinal_resim = self.ilk_resim.copy()
         self.guncel_resim = self.ilk_resim.copy()
         return self.guncel_resim
+    
+    def resim_bilgiler(self):
+        dic = {
+            "resolution": self.ilk_resim.size,
+            "format": self.ilk_resim.format,
+            "mode": self.ilk_resim.mode
+        }
+        return dic
     
     def resim_kaydet(self, resim_yolu):
         if self.guncel_resim:

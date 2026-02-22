@@ -17,7 +17,9 @@ class ButonYoneticisi():
         dosya_yolu, _ = QFileDialog.getOpenFileName(self.pencere, "Bir Resim Seç", "", "Resimler (*.png *.jpg *.jpeg)")
         if dosya_yolu:
             pil_resmi = self.motor.resim_yukle(dosya_yolu)
+            bilgiler = self.motor.resim_bilgiler()
             self.pencere.resim_guncelleme(pil_resmi)
+            self.pencere.bilgi_etiketi.setText(f"Çözünürlük: {bilgiler['resolution'][0]}x{bilgiler['resolution'][1]} Format: {bilgiler['format']} Mod: {bilgiler['mode']}")
 
     def kaydet(self):
         if self.motor.orijinal_resim:
