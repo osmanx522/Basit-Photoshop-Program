@@ -50,17 +50,22 @@ class AnaPencere(QWidget):
         btn_bulanik = QPushButton("Blur Efekti")
         btn_bulanik.setCheckable(True)
 
+        btn_grayscale = QPushButton("Siyah-Beyaz")
+        btn_grayscale.setCheckable(True)
+
         izgara.addWidget(btn_ac, 0,0)
         izgara.addWidget(btn_kaydet, 0,1)
         izgara.addWidget(btn_sifirla, 0,2)
         izgara.addWidget(btn_uygula, 0,3)
         izgara.addWidget(btn_gltich, 1,0)
         izgara.addWidget(btn_bulanik, 1,1)
+        izgara.addWidget(btn_grayscale, 1,2)
         sag_duzen.addLayout(izgara)
 
         self.efekt_grubu = QButtonGroup(self)
         self.efekt_grubu.addButton(btn_gltich, 1)
         self.efekt_grubu.addButton(btn_bulanik, 2)
+        self.efekt_grubu.addButton(btn_grayscale, 3)
 
         # AYAR CUBUGU
         self.ayar_cubugu = QSlider(Qt.Horizontal)

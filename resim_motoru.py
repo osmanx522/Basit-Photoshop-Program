@@ -1,5 +1,5 @@
 import numpy as np
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageEnhance
 
 class ResimMotoru:
     def __init__(self):
@@ -36,4 +36,9 @@ class ResimMotoru:
     
     def blur_efekti(self, siddet):
         self.guncel_resim = self.orijinal_resim.filter(ImageFilter.GaussianBlur(siddet))
+        return self.guncel_resim
+    
+    def grayscale_efekti(self, siddet):
+        siddet = 1-(siddet/100)
+        self.guncel_resim = ImageEnhance.Color(self.orijinal_resim).enhance(siddet)
         return self.guncel_resim

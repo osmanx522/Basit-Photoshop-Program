@@ -11,6 +11,8 @@ class ButonYoneticisi():
                 self.glitch(siddet)
             elif secili_efekt == 2:
                 self.blur(siddet)
+            elif secili_efekt == 3:
+                self.grayscale(siddet)
     
     # DOSYA İSLEMLERİ
     def yukle(self):
@@ -46,3 +48,7 @@ class ButonYoneticisi():
     def blur(self, siddet):
         blur_resim = self.motor.blur_efekti(siddet)
         self.pencere.resim_guncelleme(blur_resim)
+    
+    def grayscale(self, siddet):
+        grayscale_resim = self.motor.grayscale_efekti(siddet)
+        self.pencere.resim_guncelleme(grayscale_resim)
