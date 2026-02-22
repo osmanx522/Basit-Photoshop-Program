@@ -44,4 +44,5 @@ Proje karmaşıklığı önlemek için 4 ayrı dosyaya bölünmüştür:
    ```bash
    pip install PyQt5 Pillow numpy
 3. Projenin ana başlatıcı dosyasını çalıştırarak uygulamayı açın:
+   ```bash
    python main.py
