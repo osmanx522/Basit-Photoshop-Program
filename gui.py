@@ -27,46 +27,43 @@ class AnaPencere(QWidget):
         # BUTON BÖLÜMLERİ
         izgara = QGridLayout()
         izgara.setSpacing(15)
-    
-        btn_ac = QPushButton("Resim Aç")
-        btn_ac.setObjectName("btn_ac")
-        btn_ac.clicked.connect(self.buton_yonetici.yukle)
 
-        btn_kaydet = QPushButton("Resim Kaydet")
-        btn_kaydet.setObjectName("btn_kaydet")
-        btn_kaydet.clicked.connect(self.buton_yonetici.kaydet)
+        # Dosya İşlem Olan Butonlar
+        # Yapı: (Buton Metni, Obje Adı, Bağlanacak Fonksiyon, Sütun Numarası)
+        aksiyon_butonlari = [
+            ("Resim Aç", "btn_ac", self.buton_yonetici.yukle, 0),
+            ("Resim Kaydet", "btn_kaydet", self.buton_yonetici.kaydet, 1),
+            ("Resmi Sıfırla", "btn_sifirla", self.buton_yonetici.sifirla, 2),
+            ("Resmi Uygula", "btn_uygula", self.buton_yonetici.uygula, 3)
+        ]
 
-        btn_uygula = QPushButton("Resmi Uygula")
-        btn_uygula.setObjectName("btn_uygula")
-        btn_uygula.clicked.connect(self.buton_yonetici.uygula)
+        for metin, obje_adi, fonksiyon, sutun in aksiyon_butonlari:
+            btn = QPushButton(metin)
+            btn.setObjectName(obje_adi)
+            btn.clicked.connect(fonksiyon)
+            izgara.addWidget(btn, 0, sutun) # 0. Satıra sırayla diziyoruz
 
-        btn_sifirla = QPushButton("Resmi Sıfırla")
-        btn_sifirla.setObjectName("btn_sifirla")
-        btn_sifirla.clicked.connect(self.buton_yonetici.sifirla)
 
-        btn_gltich = QPushButton("Glitch Efekti")
-        btn_gltich.setCheckable(True)
-
-        btn_bulanik = QPushButton("Blur Efekti")
-        btn_bulanik.setCheckable(True)
-
-        btn_grayscale = QPushButton("Siyah-Beyaz")
-        btn_grayscale.setCheckable(True)
-
-        izgara.addWidget(btn_ac, 0,0)
-        izgara.addWidget(btn_kaydet, 0,1)
-        izgara.addWidget(btn_sifirla, 0,2)
-        izgara.addWidget(btn_uygula, 0,3)
-        izgara.addWidget(btn_gltich, 1,0)
-        izgara.addWidget(btn_bulanik, 1,1)
-        izgara.addWidget(btn_grayscale, 1,2)
-        sag_duzen.addLayout(izgara)
-
+        # EFEKT BUTONLARI
+        # Yapı: (Buton Metni, Grup ID'si, Sütun Numarası)
         self.efekt_grubu = QButtonGroup(self)
-        self.efekt_grubu.addButton(btn_gltich, 1)
-        self.efekt_grubu.addButton(btn_bulanik, 2)
-        self.efekt_grubu.addButton(btn_grayscale, 3)
+        
+        efekt_butonlari = [
+            ("Glitch Efekti", 1, 0),
+            ("Blur Efekti", 2, 1),
+            ("Siyah-Beyaz", 3, 2),
+            ("Parlaklık", 4, 3),
+            ("Kontrast", 5, 4),
+            ("Keskinleştirme", 6, 5),
+        ]
 
+        for metin, grup_id, sutun in efekt_butonlari:
+            btn = QPushButton(metin)
+            btn.setCheckable(True)
+            self.efekt_grubu.addButton(btn, grup_id)
+            izgara.addWidget(btn, 1, sutun) # 1. Satıra sırayla diziyoruz
+
+        sag_duzen.addLayout(izgara)
         # AYAR CUBUGU
         self.ayar_cubugu = QSlider(Qt.Horizontal)
         self.ayar_cubugu.valueChanged.connect(self.buton_yonetici.efekt_uygula)

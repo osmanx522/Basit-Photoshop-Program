@@ -42,3 +42,18 @@ class ResimMotoru:
         siddet = 1-(siddet/100)
         self.guncel_resim = ImageEnhance.Color(self.orijinal_resim).enhance(siddet)
         return self.guncel_resim
+    
+    def brightness_efekti(self, siddet):
+        siddet = 1-(siddet/100)
+        self.guncel_resim = ImageEnhance.Brightness(self.orijinal_resim).enhance(siddet)
+        return self.guncel_resim
+    
+    def contrast_efekti(self, siddet):
+        siddet = 1-(siddet/100)
+        self.guncel_resim = ImageEnhance.Contrast(self.orijinal_resim).enhance(siddet)
+        return self.guncel_resim
+
+    def sharpness_efekti(self, siddet):
+        siddet = 1-(siddet/100)
+        self.guncel_resim = ImageEnhance.Sharpness(self.orijinal_resim).enhance(siddet)
+        return self.guncel_resim

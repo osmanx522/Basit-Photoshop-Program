@@ -13,6 +13,12 @@ class ButonYoneticisi():
                 self.blur(siddet)
             elif secili_efekt == 3:
                 self.grayscale(siddet)
+            elif secili_efekt == 4:
+                self.brightness(siddet)
+            elif secili_efekt == 5:
+                self.contrast(siddet)
+            elif secili_efekt == 6:
+                self.sharpness(siddet)
     
     # DOSYA İSLEMLERİ
     def yukle(self):
@@ -42,13 +48,25 @@ class ButonYoneticisi():
 
     # EFEKTLER 
     def glitch(self, siddet):
-        retro_resim = self.motor.glitch_efekti(siddet)
-        self.pencere.resim_guncelleme(retro_resim)
+        resim = self.motor.glitch_efekti(siddet)
+        self.pencere.resim_guncelleme(resim)
 
     def blur(self, siddet):
-        blur_resim = self.motor.blur_efekti(siddet)
-        self.pencere.resim_guncelleme(blur_resim)
+        resim = self.motor.blur_efekti(siddet)
+        self.pencere.resim_guncelleme(resim)
     
     def grayscale(self, siddet):
-        grayscale_resim = self.motor.grayscale_efekti(siddet)
-        self.pencere.resim_guncelleme(grayscale_resim)
+        resim = self.motor.grayscale_efekti(siddet)
+        self.pencere.resim_guncelleme(resim)
+    
+    def brightness(self, siddet):
+        resim = self.motor.brightness_efekti(siddet)
+        self.pencere.resim_guncelleme(resim)
+    
+    def contrast(self, siddet):
+        resim = self.motor.contrast_efekti(siddet)
+        self.pencere.resim_guncelleme(resim)
+    
+    def sharpness(self, siddet):
+        resim = self.motor.sharpness_efekti(siddet)
+        self.pencere.resim_guncelleme(resim)
