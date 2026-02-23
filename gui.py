@@ -150,6 +150,8 @@ class AnaPencere(QWidget):
         self.setStyleSheet(stil_kodu)
 
     def resim_guncelleme(self, resim):
+        '''Resmi ekranda anlık olarak güncellemeyi sağlayan fonksiyon,
+            Ram'e yüklenen sanal bmp dosyasından sağlar.'''
         hafiza = BytesIO()
         resim.save(hafiza, format="BMP")
         pixmap_resim = QPixmap()
